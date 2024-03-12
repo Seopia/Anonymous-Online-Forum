@@ -33,3 +33,6 @@ BackEnd/src/main/resources/application.yml 파일 본인 컴퓨터에 맞게 수
 4. 검색 옵션 추가 고민
 5. 첨부파일 기능
 6. 추천 시 아이피로 추천 1번 이상 제한
+## 프로젝트 내부 사진
+게시판
+![image](https://github.com/Seopia/anonymous-board/assets/145535934/d71ab43a-e61b-43ff-9266-2193184c70c8)
