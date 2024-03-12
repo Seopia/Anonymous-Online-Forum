@@ -1,0 +1,23 @@
+.hompage-logo{
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    left: 20px;
+}
+.header-board-button{
+    cursor: pointer;
+    position: relative;
+    left: 200px;
+    background: none;
+    border-style: none;
+    font-size: 19px;
+}
+.header-board-button-underline{
+    border-width: 2px;
+    width: 50px;
+    height: 2px;
+    background-color: gray;
+    margin-top: 2px;
+    border-color: azure;
+    transition: opacity 0.3s ease;
+}

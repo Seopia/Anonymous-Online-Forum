@@ -1,0 +1,49 @@
+
+/* 모든 영역에 적용되는 css 설정 */
+
+@font-face {
+  font-family: 'SokchoBadaBatang';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/SokchoBadaBatang.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+*{
+  font-family: 'Pretendard-Regular';
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+header {
+  border-bottom-style: solid;
+  background-color: rgb(195, 249, 255);
+  border-bottom-width: 2px;
+  border-bottom-color: gray;
+  padding: 20px;
+}
+
+main{
+  margin-top: 1px;
+  flex-grow: 1;
+  background-color: rgb(222, 222, 222);
+  padding: 20px;
+}
+
+footer {
+  background-color: #757575;
+  color: rgb(82, 82, 82);
+  padding: 20px;
+  padding-left: 250px;
+
+}

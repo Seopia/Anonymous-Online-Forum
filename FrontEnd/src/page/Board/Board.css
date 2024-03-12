@@ -1,0 +1,97 @@
+.board th, .board td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    max-width: 200px;
+}
+.board th {
+    background-color: #f2f2f2;
+}
+.board-buttons{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+.board-buttons button, .board-search button {
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    margin-left: 30px;
+    background-color: rgb(0, 156, 173);
+    border-style: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+}
+.board-search{
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+.board-search button {
+    width: 50px;
+    height: 30px;
+}
+.board-search input {
+    width: 60px;
+    height: 30px;
+    border-radius: 5px;
+    border-style: none;
+    padding-left: 10px;
+    transition-property: width;
+    transition-duration: 0.5s;
+    margin-right: -15px;
+}
+.board-search input:focus{
+    width: 200px;
+    outline: none;
+}
+.board-search select {
+    margin-right: 10px;
+    padding-left: 10px;
+    border-style: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+}
+.board-search select:focus {
+    outline: none;
+}
+
+
+.pagination {
+    margin-left: 40%;
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .pagination li {
+    margin: 4px;
+    border: 1px solid #ddd;
+    border-radius: 5px; /* 버튼의 모서리를 둥글게 */
+  }
+  
+  .pagination li a {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #337ab7; /* 링크 색상 */
+  }
+  
+  .pagination li a:hover {
+    background-color: #ddd; /* 마우스 호버 색상 */
+  }
+  
+  .pagination .active a {
+    background-color: #337ab7; /* 활성 페이지 배경 색상 */
+    color: white; /* 활성 페이지 텍스트 색상 */
+    border-color: #337ab7;
+  }
+  
+  .pagination .disabled a {
+    color: #ccc; /* 비활성화된 페이지 색상 */
+  }
+
+  .hovered{
+    background-color: white;
+  }
