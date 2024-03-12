@@ -1,6 +1,8 @@
 # 익명게시판 프로젝트
 
 프로젝트를 소개합니다.
+실행 시 주의 사항
+BackEnd/src/main/resources/application.yml 파일 본인 컴퓨터에 맞게 수정하기
 
 ## 프로젝트 소개
 
