@@ -36,4 +36,10 @@ BackEnd/src/main/resources/application.yml 파일 본인 컴퓨터에 맞게 수
 6. 추천 시 아이피로 추천 1번 이상 제한
 ## 프로젝트 내부 사진
 게시판
-![image](https://github.com/Seopia/anonymous-board/assets/145535934/d71ab43a-e61b-43ff-9266-2193184c70c8)
+![image](https://github.com/Seopia/anonymous-board/assets/145535934/a9de03bf-0bdb-41a1-b0bd-c144e550e212)
+2페이지
+![image](https://github.com/Seopia/anonymous-board/assets/145535934/4ce037e4-e799-4c32-8cef-19bdbea41b41)
+글 쓰기
+![image](https://github.com/Seopia/anonymous-board/assets/145535934/2bebbaf9-ae86-4909-b250-90aea7936bf0)
+
+
