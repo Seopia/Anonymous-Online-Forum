@@ -1,7 +1,8 @@
 package org.seopia.myproject.board.service;
 
 
-import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
+import org.seopia.myproject.board.dto.PostDTO;
 import org.seopia.myproject.board.entity.Post;
 import org.seopia.myproject.board.repository.PostRepository;
 import org.springframework.data.domain.Page;
@@ -9,14 +10,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.format.DateTimeFormatter;
-
 @Service
 public class PostService {
     private final PostRepository postRepository;
+    private final ModelMapper modelMapper;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, ModelMapper modelMapper) {
         this.postRepository = postRepository;
+        this.modelMapper = modelMapper;
     }
 
     public Page<Post> findPost(int page) {
@@ -38,5 +39,20 @@ public class PostService {
     public Page<Post> findByNotice(String status, int page) {
         Pageable pageable = PageRequest.of(page, 15);
         return postRepository.findByNotice(pageable,status);
+    }
+
+    public Page<Post> searchPost(int page, String option, String word) {
+        Pageable pageable = PageRequest.of(page, 15);
+        if (option.equals("title")){
+            return postRepository.findByTitleContainingAndNotice(pageable, word,"N");
+        } else if(option.equals("detail")){
+            return postRepository.findByDetailContainingAndNotice(pageable,word,"N");
+        } else {
+            return null;
+        }
+    }
+
+    public PostDTO savePost(PostDTO postDTO) {
+        return modelMapper.map(postRepository.save(modelMapper.map(postDTO, Post.class)),PostDTO.class);
     }
 }

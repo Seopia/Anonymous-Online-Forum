@@ -1,13 +1,14 @@
 package org.seopia.myproject.board.controller;
 
 
+import org.seopia.myproject.board.dto.PostDTO;
 import org.seopia.myproject.board.entity.Post;
 import org.seopia.myproject.board.service.PostService;
+import org.seopia.myproject.common.ResponseDTO;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/board")
@@ -43,5 +44,19 @@ public class BoardController {
     @GetMapping("show-notice")
     public Page<Post> showNotice(@RequestParam(value = "page") int page){
         return postService.findByNotice("Y",page);
+    }
+    @GetMapping("search-post")
+    public Page<Post> searchPost(@RequestParam(value = "page") int page,@RequestParam(value = "option") String option,@RequestParam(value = "word") String word){
+        return postService.searchPost(page,option,word);
+    }
+
+    @PostMapping("/insert-post")
+    public ResponseDTO insertPost(@RequestBody PostDTO postDTO){
+        postDTO.setWriteDateTime(LocalDateTime.now().withNano(0).toString());
+        try {
+            return new ResponseDTO(200,postService.savePost(postDTO));
+        } catch (Exception e){
+            return new ResponseDTO(900,null, e.getMessage());
+        }
     }
 }

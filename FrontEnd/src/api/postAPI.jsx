@@ -44,3 +44,44 @@ export const fetchNoticeData = (page) => {
         .catch(error => dispatch(fetchPostFail(error)));
     }
 }
+
+export const fetchSearchPostData = (option,word,page) => {
+    if(page==undefined){
+        page=0;
+    }
+    return (dispatch) => {
+        dispatch(fetchPostLoading());
+        fetch(`http://localhost:8080/board/search-post?page=${page}&option=${option}&word=${word}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            dispatch(fetchPostSuccess(data))
+        })
+        .catch(error => dispatch(fetchPostFail(error)));
+    }
+}
+function checkError(successMessage,data){
+    if(data.code === 200){
+        alert(successMessage);
+    } else {
+        alert(data.message+'의 이유로 실패했습니다.');
+        console.error(`실패했습니다. : ${data.message}`);
+    }
+}
+async function insert(simpleUrl,data){
+    await fetch(`http://localhost:8080/${simpleUrl}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+        checkError("게시글 등록에 성공했습니다.",data);
+    });
+}
+
+export const insertPostData = (title, detail, name, pwd) => {
+    insert('board/insert-post',{title: title, detail: detail, writer: name, notice: 'N', recommend: 0});
+}

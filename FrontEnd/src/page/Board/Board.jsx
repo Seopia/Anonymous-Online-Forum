@@ -3,28 +3,31 @@ import "./Board.css";
 import Pagination from "react-js-pagination";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBestPostData, fetchPostData } from "../../api/postAPI";
+import { fetchBestPostData, fetchPostData, fetchSearchPostData } from "../../api/postAPI";
 
 
 function Board(){
     //DB 테이블에 넣어야 할 것
     //기본키 번호, 제목, 글쓴이, 내용 작성일, 이미지(첨부파일)여러 개 가능 테이블 따로, 추천 수, 공지상태, 
     /*-----------  초기 값 구간  -----------*/
-    const moueEnterColor = 'white'; //게시글에 마우스 올렸을 때 색상 값
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [boardMouseEnter, setBoardMouseEnter] = useState('none'); //게시글 마우스 올렸는지
     const [searchWord, setSearchWord] = useState('');   //검색어
+    const [saveSearchWord, setSaveSearchWord] = useState('');
+    const [saveSearchOption, setSaveSearchOption] = useState('');
     const [searchOption, setSearchOption] = useState('title');
     const [page, setPage] = useState(1);    // 현재 페이지
     const [totalElements, setTotalElements] = useState(0);
     const [hoveredPost, setHoveredPost] = useState(null);
+    const [search,setSearch] = useState(false);
 
     const post =useSelector(state => {
         return state.post;
     });
+        /* 테스트 useEffect */
+        useEffect(()=>{
+        },[search])
 
     /*-----------  useEffect 구간  -----------*/
         useEffect(()=>{ 
@@ -37,7 +40,7 @@ function Board(){
         },[post]);   
     /*-----------  요청 함수 구간  -----------*/
     const moveToPost = (key)=> {   //게시글 조회하기
-        alert(`${key}번 포스트 조회하러 가기`);
+        navigate(`/board/post/${key}`);
         
     }
     const moveToWriterPost = (name) => {    //작성자의 게시글 조회하기
@@ -46,8 +49,11 @@ function Board(){
 
     const getSearchData = (e) => {  //검색하기
         if(e.key === 'Enter'){
-            alert(`option은 : ${searchOption}\nword는 : ${searchWord}`)
+            setSaveSearchWord(searchWord);
+            setSaveSearchOption(searchOption);
             setSearchWord('');
+            setSearch(true);
+            dispatch(fetchSearchPostData(searchOption, searchWord));
         }
     }
     const getBest = () => {
@@ -58,7 +64,11 @@ function Board(){
     }
     const handlePageChange = (page) => {    //페이지 이동했으니 요청
         setPage(page);
-        dispatch(fetchPostData(page-1));
+        if(search){
+            dispatch(fetchSearchPostData(saveSearchOption, saveSearchWord, page-1));
+        } else {
+            dispatch(fetchPostData(page-1));
+        }
     };
     /*-----------  핸들러 함수 구간  -----------*/
     const searchInputOnChangeHandler = (e) => {setSearchWord(e.target.value);}  //검색어 핸들러

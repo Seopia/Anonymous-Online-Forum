@@ -7,4 +7,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     Page<Post> findAllByNotice(Pageable pageable, String n);
     Page<Post> findByRecommendGreaterThanEqualAndNotice(Pageable pageable, int recommendCount, String n);
     Page<Post> findByNotice(Pageable pageable, String status);
+    Page<Post> findByTitleContainingAndNotice(Pageable pageable, String word, String n);
+    Page<Post> findByDetailContainingAndNotice(Pageable pageable, String word, String n);
 }

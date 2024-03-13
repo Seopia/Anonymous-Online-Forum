@@ -12,7 +12,7 @@
     justify-content: flex-end;
     padding-right: 10px;
 }
-.board-buttons button, .board-search button {
+.board-buttons button {
     cursor: pointer;
     width: 150px;
     height: 50px;
@@ -22,6 +22,10 @@
     border-radius: 5px;
     font-size: 16px;
     color: white;
+    transition: background-color 0.5s ease;
+}
+.board-buttons button:hover {
+  background-color: rgb(0, 179, 199);
 }
 .board-search{
     margin-left: 10px;
@@ -76,16 +80,16 @@
     padding: 8px 12px;
     text-decoration: none;
     color: #337ab7; /* 링크 색상 */
+    border-radius: 5px;
   }
   
   .pagination li a:hover {
-    background-color: #ddd; /* 마우스 호버 색상 */
+    background-color: rgb(0, 179, 199); /* 마우스 호버 색상 */
   }
   
   .pagination .active a {
-    background-color: #337ab7; /* 활성 페이지 배경 색상 */
+    background-color: rgb(0, 156, 173); /* 활성 페이지 배경 색상 */
     color: white; /* 활성 페이지 텍스트 색상 */
-    border-color: #337ab7;
   }
   
   .pagination .disabled a {
