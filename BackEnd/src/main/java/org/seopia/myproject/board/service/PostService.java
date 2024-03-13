@@ -2,6 +2,7 @@ package org.seopia.myproject.board.service;
 
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.seopia.myproject.board.dto.PostDTO;
 import org.seopia.myproject.board.entity.Post;
 import org.seopia.myproject.board.repository.PostRepository;
@@ -9,6 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -54,5 +59,21 @@ public class PostService {
 
     public PostDTO savePost(PostDTO postDTO) {
         return modelMapper.map(postRepository.save(modelMapper.map(postDTO, Post.class)),PostDTO.class);
+    }
+
+    public PostDTO findById(Integer postCode) {
+        Post post = postRepository.findById(postCode).orElseThrow();
+        return modelMapper.map(post,PostDTO.class);
+    }
+
+
+    public List<PostDTO> getAroundPost(Integer postCode) {
+        return convert(postRepository.findAroundPost(postCode+1,postCode+10),PostDTO.class);
+    }
+
+    private <S, T> List<T> convert(List<S> list, Class<T> targetClass) {
+        return list.stream()
+                .map(value -> modelMapper.map(value, targetClass))
+                .collect(Collectors.toList());
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/board")
@@ -48,6 +49,14 @@ public class BoardController {
     @GetMapping("search-post")
     public Page<Post> searchPost(@RequestParam(value = "page") int page,@RequestParam(value = "option") String option,@RequestParam(value = "word") String word){
         return postService.searchPost(page,option,word);
+    }
+    @GetMapping("/show-post-detail")
+    public ResponseDTO showPostDetail(@RequestParam(value = "postCode") Integer postCode){
+        return new ResponseDTO(200,postService.findById(postCode),"성공");
+    }
+    @GetMapping("/show-around-post-detail")
+    public List<PostDTO> showAroundPostDetail(@RequestParam(value = "postCode") Integer postCode){
+        return postService.getAroundPost(postCode);
     }
 
     @PostMapping("/insert-post")

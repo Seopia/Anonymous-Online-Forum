@@ -1,3 +1,4 @@
+import { fetchAroundPostFail, fetchAroundPostLoading, fetchAroundPostSuccess } from "../reducers/aroundPostReducer";
 import { fetchPostFail, fetchPostLoading, fetchPostSuccess } from "../reducers/postReducer"
 
 export const fetchPostData = (page) => {
@@ -58,6 +59,28 @@ export const fetchSearchPostData = (option,word,page) => {
             dispatch(fetchPostSuccess(data))
         })
         .catch(error => dispatch(fetchPostFail(error)));
+    }
+}
+export const fetchPostDetailData = (postCode) => {
+    return async (dispatch) => {
+        dispatch(fetchPostLoading());
+        await fetch(`http://localhost:8080/board/show-post-detail?postCode=${postCode}`)
+        .then(res => res.json())
+        .then(data => {
+            dispatch(fetchPostSuccess(data))
+        })
+        .catch(error => dispatch(fetchPostFail(error)));
+    }
+}
+export const fetchAroundPostDetailData = (postCode) => {
+    return async (dispatch) => {
+        dispatch(fetchAroundPostLoading());
+        await fetch(`http://localhost:8080/board/show-around-post-detail?postCode=${postCode}`)
+        .then(res => res.json())
+        .then(data => {
+            dispatch(fetchAroundPostSuccess(data))
+        })
+        .catch(error => dispatch(fetchAroundPostFail(error)));
     }
 }
 function checkError(successMessage,data){

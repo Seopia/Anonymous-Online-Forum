@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Board.css";
 import Pagination from "react-js-pagination";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBestPostData, fetchPostData, fetchSearchPostData } from "../../api/postAPI";
 
