@@ -31,7 +31,15 @@ function Board(){
 
     /*-----------  useEffect 구간  -----------*/
         useEffect(()=>{ 
-            dispatch(fetchPostData(page-1));
+            if(sessionStorage.getItem('currentPage')){  //세션에 페이지가 있으면 세션에 페이지로 dispatch
+                setPage(Number(sessionStorage.getItem('currentPage')));
+                dispatch(fetchPostData(sessionStorage.getItem('currentPage')-1));
+            } else {    //없으면 기본 값인 1에 1을 빼서 0으로 dispatch
+                setPage(Number(page));
+                dispatch(fetchPostData(page-1));
+            }
+            
+            
         },[]);   
         useEffect(()=>{
             if(post?.data?.pageable){
@@ -64,6 +72,7 @@ function Board(){
     }
     const handlePageChange = (page) => {    //페이지 이동했으니 요청
         setPage(page);
+        sessionStorage.setItem('currentPage',page);     //세션 스토리지에 현재 페이지 저장
         if(search){
             dispatch(fetchSearchPostData(saveSearchOption, saveSearchWord, page-1));
         } else {

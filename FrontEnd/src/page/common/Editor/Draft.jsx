@@ -5,6 +5,7 @@ import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftjsToHtml from "draftjs-to-html";
 
+
 const Container = styled.div`
   width: 100%;
 `;
@@ -29,6 +30,7 @@ const Draft = ({data, onDataChange}) => {
   const updateTextDescription = async (state) => {
     await setEditorState(state);
     const html = draftjsToHtml(convertToRaw(editorState.getCurrentContent()));
+    
     onDataChange(html);
   };
 

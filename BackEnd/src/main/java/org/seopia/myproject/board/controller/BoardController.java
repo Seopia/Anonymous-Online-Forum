@@ -68,4 +68,17 @@ public class BoardController {
             return new ResponseDTO(900,null, e.getMessage());
         }
     }
+    @PutMapping("update-post")
+    public ResponseDTO updatePost(@RequestBody PostDTO postDTO){
+        System.out.println(postDTO);
+        try {
+            return new ResponseDTO(200,postService.updatePost(postDTO));
+        } catch (Exception e){
+            return new ResponseDTO(900,null, e.getMessage());
+        }
+    }
+    @DeleteMapping("/delete-post")
+    public ResponseDTO deletePost(@RequestParam(value = "postCode") Integer postCode){
+        return new ResponseDTO(200, postService.deletePost(postCode));
+    }
 }

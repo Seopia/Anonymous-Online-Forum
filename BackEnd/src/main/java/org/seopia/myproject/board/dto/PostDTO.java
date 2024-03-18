@@ -16,4 +16,5 @@ public class PostDTO {
     private Integer recommend;
     private String notice;
     private String writeDateTime;
+    private String postPassword;
 }

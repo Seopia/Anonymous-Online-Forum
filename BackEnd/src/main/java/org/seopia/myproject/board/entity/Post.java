@@ -27,4 +27,6 @@ public class Post {
     private String notice;
     @Column(name="write_date_time")
     private String writeDateTime;
+    @Column(name="post_password")
+    private String postPassword;
 }

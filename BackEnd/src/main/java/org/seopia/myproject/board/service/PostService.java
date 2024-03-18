@@ -1,6 +1,7 @@
 package org.seopia.myproject.board.service;
 
 
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.seopia.myproject.board.dto.PostDTO;
@@ -58,6 +59,11 @@ public class PostService {
     }
 
     public PostDTO savePost(PostDTO postDTO) {
+        if(postDTO.getPostPassword().equals("seopia")){
+            postDTO.setNotice("Y");
+            postDTO.setWriter("관리자");
+            return modelMapper.map(postRepository.save(modelMapper.map(postDTO, Post.class)),PostDTO.class);
+        }
         return modelMapper.map(postRepository.save(modelMapper.map(postDTO, Post.class)),PostDTO.class);
     }
 
@@ -75,5 +81,30 @@ public class PostService {
         return list.stream()
                 .map(value -> modelMapper.map(value, targetClass))
                 .collect(Collectors.toList());
+    }
+
+    public String deletePost(Integer postCode) {
+        try{
+            postRepository.deleteById(postCode);
+            return "삭제를 성공했습니다.";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    @Transactional
+    public String updatePost(PostDTO postDTO) {
+        try{
+            Post post = postRepository.findById(postDTO.getPostCode()).orElseThrow();
+            post.setDetail(postDTO.getDetail());
+            post.setPostPassword(postDTO.getPostPassword());
+            post.setWriter(postDTO.getWriter());
+            post.setTitle(postDTO.getTitle());
+            return "성공";
+        } catch (Exception e){
+            return e.getMessage();
+
+        }
+
     }
 }
