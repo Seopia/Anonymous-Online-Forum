@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "post")
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter@Getter@ToString
+@Setter@Getter
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +31,7 @@ public class Post {
     private String writeDateTime;
     @Column(name="post_password")
     private String postPassword;
+
+    @OneToMany(mappedBy = "postCode")
+    private List<Comment> comment = new ArrayList<>();
 }

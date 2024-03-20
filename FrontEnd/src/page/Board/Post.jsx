@@ -84,6 +84,24 @@ function Post(){
                 <hr/>
                 {/* <div>{post.detail}</div> */}
                 <div dangerouslySetInnerHTML={{ __html: post.detail}}></div>
+                <hr/>
+                <input type="text" />
+                <button>댓글 쓰기</button>
+                <ol>
+                    {
+                        post?.comment?.map((com)=>(
+                                <li key={com.commentCode}>
+                                    <div>
+                                        <span>{com.commentId}</span>
+                                        <span>{com.commentTime}</span>
+                                        <span>좋아요 : {com.commentLike}</span>
+                                    </div>
+                                    <div>{com.commentDetail}</div>
+                                    <hr/>
+                                </li>
+                        ))
+                    }
+                </ol>
             </div>
             ) : (<div></div>)
             }

@@ -6,7 +6,8 @@ BackEnd/src/main/resources/application.yml 파일 본인 컴퓨터에 맞게 수
 
 ## 프로젝트 소개
 
-이 프로젝트는 익명 게시판입니다.
+This project is an anonymous online forum.
+This project follows a Build and Fix model, but I have attempted to improve the code quality.
 
 ## 구현
 1. 글 목록 날짜 순으로 조회

@@ -52,7 +52,8 @@ public class BoardController {
     }
     @GetMapping("/show-post-detail")
     public ResponseDTO showPostDetail(@RequestParam(value = "postCode") Integer postCode){
-        return new ResponseDTO(200,postService.findById(postCode),"성공");
+        PostDTO postDTO = postService.findById(postCode);
+        return new ResponseDTO(200,postDTO,"성공");
     }
     @GetMapping("/show-around-post-detail")
     public List<PostDTO> showAroundPostDetail(@RequestParam(value = "postCode") Integer postCode){
