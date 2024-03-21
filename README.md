@@ -33,8 +33,8 @@ This project follows a Build and Fix model, but I have attempted to improve the 
 4. 추천 기능
 6. 글쓴이와 같은 아이디로 조회
 
-## 미구현 세부 사항
- --
+## 고민중
+ 1. 아이피를 아이디대신하여 사용하기
 
 4. 검색 옵션 추가 고민
 5. 첨부파일 기능
