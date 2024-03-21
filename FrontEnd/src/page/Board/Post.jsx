@@ -60,9 +60,6 @@ function Post(){
         insertCommentData(commentInput,commentInputId,id,commentInputPwd);
         window.location.reload();
     }
-    const commentEditHandler = () => {
-        
-    }
     const pwdInputHandler = (e) => {setUserInputPwd(e.target.value)}
     const postMouseEnterEvent = (postCode) => {setHoveredPost(postCode)} //게시글 Mouse Enter 핸들러
     const postMouseLeaveEvent = () => {setHoveredPost(null);} //게시글 Mouse Leave 핸들러
@@ -111,8 +108,6 @@ function Post(){
                                         <span>{com.commentId}</span>
                                         <span>{com.commentTime}</span>
                                         <span>좋아요 : {com.commentLike}</span>
-                                        <span onClick={commentEditHandler}>수정</span>
-                                        <span>삭제</span>
                                     </div>
                                     <div>{com.commentDetail}</div>
                                     <hr/>

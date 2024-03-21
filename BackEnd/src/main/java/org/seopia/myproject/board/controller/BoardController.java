@@ -1,6 +1,7 @@
 package org.seopia.myproject.board.controller;
 
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.seopia.myproject.board.dto.CommentDTO;
 import org.seopia.myproject.board.dto.PostDTO;
 import org.seopia.myproject.board.entity.Post;
@@ -64,9 +65,10 @@ public class BoardController {
         return postService.getAroundPost(postCode);
     }
     @PostMapping("insert-comment")
-    public ResponseDTO insertComment(@RequestBody CommentDTO commentDTO){
+    public ResponseDTO insertComment(@RequestBody CommentDTO commentDTO, HttpServletRequest request){
         commentDTO.setCommentLike(0);
         commentDTO.setCommentTime(LocalDateTime.now().toString());
+        System.out.println("==========="+request.getRemoteAddr());
 
         return new ResponseDTO(200, commentService.insertComment(commentDTO),"성공");
     }
