@@ -145,3 +145,7 @@ export const deletePostData = (postCode) => {
 export const updatePostData = (postCode,title, detail, name, pwd) => {
     updateData(`board/update-post`,{postCode: postCode, title: title, detail: detail, writer: name, postPassword: pwd},'수정에 성공했습니다.');
 }
+
+export const insertCommentData = (comment, name, postCode, pwd) => {
+    insertData(`board/insert-comment`,{commentDetail: comment, commentId: name, postCode: postCode, commentPwd: pwd},'댓글을 등록했습니다.');
+}

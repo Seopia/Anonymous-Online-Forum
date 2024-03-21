@@ -26,6 +26,7 @@ This project follows a Build and Fix model, but I have attempted to improve the 
 15. 글 상세 조회 html을 변환하여 조회 가능
 16. 글 삭제 가능
 17. 글 수정 가능
+18. 댓글 작성 가능
 
 ## 아직 미구현
 3. 이미지 첨부 기능

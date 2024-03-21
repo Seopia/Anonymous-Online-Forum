@@ -1,8 +1,10 @@
 package org.seopia.myproject.board.controller;
 
 
+import org.seopia.myproject.board.dto.CommentDTO;
 import org.seopia.myproject.board.dto.PostDTO;
 import org.seopia.myproject.board.entity.Post;
+import org.seopia.myproject.board.service.CommentService;
 import org.seopia.myproject.board.service.PostService;
 import org.seopia.myproject.common.ResponseDTO;
 import org.springframework.data.domain.Page;
@@ -16,9 +18,11 @@ import java.util.List;
 public class BoardController {
 
     private final PostService postService;
+    private final CommentService commentService;
 
-    public BoardController(PostService postService) {
+    public BoardController(PostService postService, CommentService commentService) {
         this.postService = postService;
+        this.commentService = commentService;
     }
 
 
@@ -59,7 +63,13 @@ public class BoardController {
     public List<PostDTO> showAroundPostDetail(@RequestParam(value = "postCode") Integer postCode){
         return postService.getAroundPost(postCode);
     }
+    @PostMapping("insert-comment")
+    public ResponseDTO insertComment(@RequestBody CommentDTO commentDTO){
+        commentDTO.setCommentLike(0);
+        commentDTO.setCommentTime(LocalDateTime.now().toString());
 
+        return new ResponseDTO(200, commentService.insertComment(commentDTO),"성공");
+    }
     @PostMapping("/insert-post")
     public ResponseDTO insertPost(@RequestBody PostDTO postDTO){
         postDTO.setWriteDateTime(LocalDateTime.now().withNano(0).toString());

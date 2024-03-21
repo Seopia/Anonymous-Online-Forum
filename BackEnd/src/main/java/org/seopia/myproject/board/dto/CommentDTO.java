@@ -13,4 +13,5 @@ public class CommentDTO {
     private Integer commentLike;
     private String commentId;
     private String commentPwd;
+    private Integer postCode;
 }

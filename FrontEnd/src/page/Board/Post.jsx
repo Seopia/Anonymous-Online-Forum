@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { deletePostData, fetchAroundPostDetailData, fetchPostDetailData } from "../../api/postAPI";
+import { deletePostData, fetchAroundPostDetailData, fetchPostDetailData, insertCommentData } from "../../api/postAPI";
 
 function Post(){
     const { id } = useParams();
@@ -11,6 +11,9 @@ function Post(){
     const [pwdInput, setPwdInput] = useState(false);
     const [postStatus, setPostStatus] = useState('');
     const [userInputPwd,setUserInputPwd] = useState('');
+    const [commentInput, setCommentInput] = useState('');
+    const [commentInputId, setCommentInputId] = useState('');
+    const [commentInputPwd, setCommentInputPwd] = useState('');
     const aroundPosts = useSelector(state => {
         if(state.aroundPost?.data){
             return state.aroundPost.data;
@@ -53,9 +56,19 @@ function Post(){
             alert('비밀번호가 다릅니다.');
         }
     }
+    const insertComment = () => {
+        insertCommentData(commentInput,commentInputId,id,commentInputPwd);
+        window.location.reload();
+    }
+    const commentEditHandler = () => {
+        
+    }
     const pwdInputHandler = (e) => {setUserInputPwd(e.target.value)}
     const postMouseEnterEvent = (postCode) => {setHoveredPost(postCode)} //게시글 Mouse Enter 핸들러
     const postMouseLeaveEvent = () => {setHoveredPost(null);} //게시글 Mouse Leave 핸들러
+    const commentInputHandler = (e) => setCommentInput(e.target.value);
+    const commentIdInputHandler = (e) => setCommentInputId(e.target.value);
+    const commentPwdInputHandler = (e) => setCommentInputPwd(e.target.value);
     return(
         <main>
             <button onClick={moveToBoard}>돌아가기</button>
@@ -85,8 +98,11 @@ function Post(){
                 {/* <div>{post.detail}</div> */}
                 <div dangerouslySetInnerHTML={{ __html: post.detail}}></div>
                 <hr/>
-                <input type="text" />
-                <button>댓글 쓰기</button>
+                <input placeholder="아이디" onChange={commentIdInputHandler} type="text" value={commentInputId}/>
+                <input placeholder="비밀번호" onChange={commentPwdInputHandler} type="text" value={commentInputPwd}/>
+                <br/>
+                <input placeholder="댓글 내용" onChange={commentInputHandler} type="text" value={commentInput}/>
+                <button onClick={insertComment}>댓글 쓰기</button>
                 <ol>
                     {
                         post?.comment?.map((com)=>(
@@ -95,6 +111,8 @@ function Post(){
                                         <span>{com.commentId}</span>
                                         <span>{com.commentTime}</span>
                                         <span>좋아요 : {com.commentLike}</span>
+                                        <span onClick={commentEditHandler}>수정</span>
+                                        <span>삭제</span>
                                     </div>
                                     <div>{com.commentDetail}</div>
                                     <hr/>
