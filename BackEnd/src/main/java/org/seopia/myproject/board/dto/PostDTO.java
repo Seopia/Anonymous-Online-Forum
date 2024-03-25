@@ -1,5 +1,6 @@
 package org.seopia.myproject.board.dto;
 import lombok.*;
+import org.seopia.myproject.board.entity.PostLike;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,4 +19,5 @@ public class PostDTO {
     private String writeDateTime;
     private String postPassword;
     private List<CommentDTO> comment;
+    private List<PostLike> like;
 }

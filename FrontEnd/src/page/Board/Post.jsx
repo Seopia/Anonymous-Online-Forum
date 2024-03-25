@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { deletePostData, fetchAroundPostDetailData, fetchPostDetailData, insertCommentData } from "../../api/postAPI";
+import { deletePostData, fetchAroundPostDetailData, fetchPostDetailData, insertCommentData, postLike } from "../../api/postAPI";
 
 function Post(){
     const { id } = useParams();
@@ -14,6 +14,7 @@ function Post(){
     const [commentInput, setCommentInput] = useState('');
     const [commentInputId, setCommentInputId] = useState('');
     const [commentInputPwd, setCommentInputPwd] = useState('');
+    const [postLikeCount, setPostLikeCount] = useState(0);
     const aroundPosts = useSelector(state => {
         if(state.aroundPost?.data){
             return state.aroundPost.data;
@@ -21,6 +22,7 @@ function Post(){
     })
     const post = useSelector(state => {
         if(state.post?.data?.object){
+            // console.log(state.post.data.object);
             return state.post.data.object;
         }
     });
@@ -35,6 +37,13 @@ function Post(){
             dispatch(fetchPostDetailData(id));
         }
     },[id])
+    useEffect(()=>{
+        if(post){
+            if(post.like){
+                setPostLikeCount(post.like.length);
+            }
+        }
+    },[post])
     const moveToPost = (key)=> {   //게시글 조회하기
         navigate(`/board/post/${key}`);
         window.location.reload();
@@ -60,6 +69,9 @@ function Post(){
         insertCommentData(commentInput,commentInputId,id,commentInputPwd);
         window.location.reload();
     }
+    const postLikeHandler = () => {
+        postLike(id);
+    }
     const pwdInputHandler = (e) => {setUserInputPwd(e.target.value)}
     const postMouseEnterEvent = (postCode) => {setHoveredPost(postCode)} //게시글 Mouse Enter 핸들러
     const postMouseLeaveEvent = () => {setHoveredPost(null);} //게시글 Mouse Leave 핸들러
@@ -69,7 +81,7 @@ function Post(){
     return(
         <main>
             <button onClick={moveToBoard}>돌아가기</button>
-            <button>추천하기</button>
+            <button onClick={postLikeHandler}>추천하기</button>
             <button onClick={()=>{showPwdInput('수정')}}>수정</button>
             <button onClick={()=>{showPwdInput('삭제')}}>삭제</button>
             {
@@ -89,7 +101,7 @@ function Post(){
                 {/* <div>{post.postCode}</div> */}
                 <div>제목 : {post.title}</div>
                 <div>글쓴이 : {post.writer}</div>
-                <div>추천 수 : {post.recommend}</div>
+                <div>추천 수 : {postLikeCount}</div>
                 <div>글쓴 시간 : {post.writeDateTime}</div>
                 <hr/>
                 {/* <div>{post.detail}</div> */}

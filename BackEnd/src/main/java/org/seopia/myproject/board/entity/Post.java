@@ -2,6 +2,7 @@ package org.seopia.myproject.board.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -34,4 +35,6 @@ public class Post {
 
     @OneToMany(mappedBy = "postCode")
     private List<Comment> comment = new ArrayList<>();
+    @OneToMany(mappedBy = "likePostCode")
+    private List<PostLike> like = new ArrayList<>();
 }

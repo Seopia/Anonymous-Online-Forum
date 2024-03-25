@@ -92,6 +92,11 @@ export const fetchAroundPostDetailData = (postCode) => {
         .catch(error => dispatch(fetchAroundPostFail(error)));
     }
 }
+async function getData(simpleUrl, msg){
+    await fetch(`http://${process.env.REACT_APP_IP}:8080/${simpleUrl}`,{
+        method: "GET",
+    })
+}
 
 async function insertData(simpleUrl,data,msg){
     await fetch(`http://${process.env.REACT_APP_IP}:8080/${simpleUrl}`, {
@@ -101,7 +106,11 @@ async function insertData(simpleUrl,data,msg){
         },
         body: JSON.stringify(data)
     })
-    .then(res => res.json())
+    .then(res => {
+        if(res !== null){
+            res.json();
+        }
+    })
     .then(data => {
         checkError(msg,data);
     });
@@ -148,4 +157,7 @@ export const updatePostData = (postCode,title, detail, name, pwd) => {
 
 export const insertCommentData = (comment, name, postCode, pwd) => {
     insertData(`board/insert-comment`,{commentDetail: comment, commentId: name, postCode: postCode, commentPwd: pwd},'댓글을 등록했습니다.');
+}
+export const postLike = (id) => {
+    getData(`board/post-like?id=${id}`,'추천 성공');
 }

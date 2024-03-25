@@ -27,6 +27,7 @@ This project follows a Build and Fix model, but I have attempted to improve the 
 16. 글 삭제 가능
 17. 글 수정 가능
 18. 댓글 작성 가능
+19. 추천 기능(IP로 1번으로 제한)
 
 ## 아직 미구현
 3. 이미지 첨부 기능

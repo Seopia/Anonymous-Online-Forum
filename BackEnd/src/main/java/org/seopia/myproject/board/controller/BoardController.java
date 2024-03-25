@@ -4,8 +4,10 @@ package org.seopia.myproject.board.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import org.seopia.myproject.board.dto.CommentDTO;
 import org.seopia.myproject.board.dto.PostDTO;
+import org.seopia.myproject.board.dto.PostLikeDTO;
 import org.seopia.myproject.board.entity.Post;
 import org.seopia.myproject.board.service.CommentService;
+import org.seopia.myproject.board.service.PostLikeService;
 import org.seopia.myproject.board.service.PostService;
 import org.seopia.myproject.common.ResponseDTO;
 import org.springframework.data.domain.Page;
@@ -20,10 +22,12 @@ public class BoardController {
 
     private final PostService postService;
     private final CommentService commentService;
+    private final PostLikeService postLikeService;
 
-    public BoardController(PostService postService, CommentService commentService) {
+    public BoardController(PostService postService, CommentService commentService, PostLikeService postLikeService) {
         this.postService = postService;
         this.commentService = commentService;
+        this.postLikeService = postLikeService;
     }
 
 
@@ -63,6 +67,21 @@ public class BoardController {
     @GetMapping("/show-around-post-detail")
     public List<PostDTO> showAroundPostDetail(@RequestParam(value = "postCode") Integer postCode){
         return postService.getAroundPost(postCode);
+    }
+    @GetMapping("post-like")
+    public ResponseDTO likePost(@RequestParam(value = "id")Integer postCode, HttpServletRequest request){
+        PostLikeDTO postLikeDTO = postLikeService.findByLikeIpAndPostCode(request.getRemoteAddr(),postCode);
+        if(postLikeDTO == null){
+            PostLikeDTO postLike = new PostLikeDTO();
+            postLike.setLikePostCode(postCode);
+            postLike.setLikeIp(request.getRemoteAddr());
+            postLikeService.insertPostLike(postLike);
+            System.out.println("좋아요");
+        }else {
+            postLikeService.deletePostLike(postLikeDTO.getLikeCode());
+            System.out.println("좋아요 취소");
+        }
+        return new ResponseDTO(200,null,"성공");
     }
     @PostMapping("insert-comment")
     public ResponseDTO insertComment(@RequestBody CommentDTO commentDTO, HttpServletRequest request){
